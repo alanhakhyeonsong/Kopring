@@ -55,8 +55,8 @@ class UserLoanHistoryRepositoryTest @Autowired constructor(
             userLoanHistoryRepository.findByBookNameAndIsReturn(bookName, false)
 
         //then
-        assertThat(result.get().bookName).isEqualTo(bookName)
-        assertThat(result.get().user).isEqualTo(savedUser)
-        assertThat(result.get().isReturn).isFalse
+        assertThat(result!!.bookName).isEqualTo(bookName)
+        assertThat(result.user).isEqualTo(savedUser)
+        assertThat(result.isReturn).isFalse
     }
 }

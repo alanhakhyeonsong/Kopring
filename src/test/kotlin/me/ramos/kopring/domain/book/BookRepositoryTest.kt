@@ -41,7 +41,7 @@ class BookRepositoryTest @Autowired constructor(
         val result = bookRepository.findByName(bookName)
 
         //then
-        assertThat(result.get().name).isEqualTo(bookName)
-        assertThat(result.get().id).isEqualTo(savedBook.id)
+        assertThat(result!!.name).isEqualTo(bookName)
+        assertThat(result.id).isEqualTo(savedBook.id)
     }
 }

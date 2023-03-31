@@ -41,8 +41,8 @@ class UserRepositoryTest @Autowired constructor(
         val result = userRepository.findByName(name)
 
         //then
-        assertThat(result.get().name).isEqualTo(savedUser.name)
-        assertThat(result.get().age).isEqualTo(savedUser.age)
-        assertThat(result.get().id).isEqualTo(savedUser.id)
+        assertThat(result!!.name).isEqualTo(savedUser.name)
+        assertThat(result.age).isEqualTo(savedUser.age)
+        assertThat(result.id).isEqualTo(savedUser.id)
     }
 }
