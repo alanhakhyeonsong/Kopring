@@ -5,5 +5,5 @@ import java.util.*
 
 interface UserLoanHistoryRepository : JpaRepository<UserLoanHistory, Long> {
 
-    fun findByBookNameAndIsReturn(bookName: String, isReturn: Boolean): Optional<UserLoanHistory>
+    fun findByBookNameAndIsReturn(bookName: String, isReturn: Boolean): UserLoanHistory?
 }
