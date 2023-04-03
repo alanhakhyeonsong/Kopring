@@ -31,7 +31,7 @@ class BookControllerTest {
     @Test
     fun saveBook() {
         //given
-        val request = BookRequest("Kotlin In Action")
+        val request = BookRequest("Kotlin In Action", "IT")
         val json = jacksonObjectMapper().writeValueAsString(request)
         val uri = "/book"
 

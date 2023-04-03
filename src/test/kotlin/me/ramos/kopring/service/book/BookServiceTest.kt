@@ -35,7 +35,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun saveBookTest() {
         //given
-        val request = BookRequest("HTTP 완벽 가이드")
+        val request = BookRequest("HTTP 완벽 가이드", "IT")
 
         //when
         bookService.saveBook(request)
@@ -49,7 +49,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun loanBookTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
         val savedUser = userRepository.save(User("Ramos", null))
         val request = BookLoanRequest("Ramos", "무엇이 인간을 만드는가")
 
@@ -67,7 +67,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun loanBookFailTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
         val savedUser = userRepository.save(User("Ramos", null))
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
         val request = BookLoanRequest("Ramos", "무엇이 인간을 만드는가")
@@ -82,7 +82,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun returnBookTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
         val savedUser = userRepository.save(User("Ramos", null))
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
         val request = BookReturnRequest("Ramos", "무엇이 인간을 만드는가")
