@@ -7,11 +7,10 @@ import me.ramos.kopring.domain.user.User
 import me.ramos.kopring.domain.user.UserRepository
 import me.ramos.kopring.domain.user.loanhistory.UserLoanHistory
 import me.ramos.kopring.domain.user.loanhistory.UserLoanHistoryRepository
+import me.ramos.kopring.domain.user.loanhistory.UserLoanStatus
 import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
-import me.ramos.kopring.service.book.BookService
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -63,7 +62,7 @@ class BookServiceTest @Autowired constructor(
         assertThat(results).hasSize(1)
         assertThat(results[0].bookName).isEqualTo("무엇이 인간을 만드는가")
         assertThat(results[0].user.id).isEqualTo(savedUser.id)
-        assertThat(results[0].isReturn).isFalse
+        assertThat(results[0].status).isEqualTo(UserLoanStatus.LOANED)
     }
 
     @Test
@@ -71,7 +70,7 @@ class BookServiceTest @Autowired constructor(
         //given
         bookRepository.save(Book("무엇이 인간을 만드는가", BookType.SOCIETY))
         val savedUser = userRepository.save(User("Ramos", null))
-        userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
+        userLoanHistoryRepository.save(UserLoanHistory.fixture(savedUser, "무엇이 인간을 만드는가"))
         val request = BookLoanRequest("Ramos", "무엇이 인간을 만드는가")
 
         //when, then
@@ -86,7 +85,7 @@ class BookServiceTest @Autowired constructor(
         //given
         bookRepository.save(Book("무엇이 인간을 만드는가", BookType.SOCIETY))
         val savedUser = userRepository.save(User("Ramos", null))
-        userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
+        userLoanHistoryRepository.save(UserLoanHistory.fixture(savedUser, "무엇이 인간을 만드는가"))
         val request = BookReturnRequest("Ramos", "무엇이 인간을 만드는가")
 
         //when
@@ -95,6 +94,6 @@ class BookServiceTest @Autowired constructor(
         //then
         val results = userLoanHistoryRepository.findAll()
         assertThat(results).hasSize(1)
-        assertThat(results[0].isReturn).isTrue
+        assertThat(results[0].status).isEqualTo(UserLoanStatus.RETURNED)
     }
 }

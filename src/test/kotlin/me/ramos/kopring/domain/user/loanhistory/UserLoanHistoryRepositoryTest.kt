@@ -28,7 +28,7 @@ class UserLoanHistoryRepositoryTest @Autowired constructor(
         val savedUser = userRepository.save(user)
 
         val bookName = "오브젝트"
-        val userLoanHistory = UserLoanHistory(savedUser, bookName, false)
+        val userLoanHistory = UserLoanHistory.fixture(savedUser, bookName)
 
         //when
         val savedHistory = userLoanHistoryRepository.save(userLoanHistory)
@@ -36,27 +36,27 @@ class UserLoanHistoryRepositoryTest @Autowired constructor(
         //then
         assertThat(savedHistory.bookName).isEqualTo(bookName)
         assertThat(savedHistory.user).isEqualTo(savedUser)
-        assertThat(savedHistory.isReturn).isFalse
+        assertThat(savedHistory.status).isEqualTo(UserLoanStatus.LOANED)
     }
 
     @Test
-    fun findByBookNameAndIsReturn() {
+    fun findByBookNameAndStatus() {
         //given
         val name = "Ramos"
         val user = User(name, 28)
         val savedUser = userRepository.save(user)
 
         val bookName = "오브젝트"
-        val userLoanHistory = UserLoanHistory(savedUser, bookName, false)
+        val userLoanHistory = UserLoanHistory.fixture(savedUser, bookName)
         userLoanHistoryRepository.save(userLoanHistory)
 
         //when
         val result =
-            userLoanHistoryRepository.findByBookNameAndIsReturn(bookName, false)
+            userLoanHistoryRepository.findByBookNameAndStatus(bookName, UserLoanStatus.LOANED)
 
         //then
         assertThat(result!!.bookName).isEqualTo(bookName)
         assertThat(result.user).isEqualTo(savedUser)
-        assertThat(result.isReturn).isFalse
+        assertThat(result.status).isEqualTo(UserLoanStatus.LOANED)
     }
 }
