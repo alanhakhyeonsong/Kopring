@@ -4,6 +4,7 @@ import me.ramos.kopring.domain.book.Book
 import me.ramos.kopring.domain.book.BookRepository
 import me.ramos.kopring.domain.user.UserRepository
 import me.ramos.kopring.domain.user.loanhistory.UserLoanHistoryRepository
+import me.ramos.kopring.domain.user.loanhistory.UserLoanStatus
 import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
@@ -19,12 +20,12 @@ class BookService(
 
     @Transactional
     fun saveBook(request: BookRequest) {
-        bookRepository.save(Book(request.name))
+        bookRepository.save(Book(request.name, request.type))
     }
 
     @Transactional
     fun loanBook(request: BookLoanRequest) {
-        if (userLoanHistoryRepository.findByBookNameAndIsReturn(request.bookName, false) != null) {
+        if (userLoanHistoryRepository.findByBookNameAndStatus(request.bookName, UserLoanStatus.LOANED) != null) {
             throw IllegalArgumentException("이미 대출되어 있는 책입니다")
         }
 
