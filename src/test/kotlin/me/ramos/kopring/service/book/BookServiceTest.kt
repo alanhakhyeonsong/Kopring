@@ -44,6 +44,7 @@ class BookServiceTest @Autowired constructor(
         val books = bookRepository.findAll()
         assertThat(books).hasSize(1)
         assertThat(books[0].name).isEqualTo("HTTP 완벽 가이드")
+        assertThat(books[0].type).isEqualTo("IT")
     }
 
     @Test

@@ -20,15 +20,14 @@ class BookRepositoryTest @Autowired constructor(
     fun save() {
         //given
         val bookName = "HTTP 완벽 가이드"
-        val bookType = "IT"
-        val book = Book.fixture(bookName, bookType)
+        val book = Book.fixture(bookName)
 
         //when
         val savedBook = bookRepository.save(book)
 
         //then
         assertThat(savedBook.name).isEqualTo(bookName)
-        assertThat(savedBook.type).isEqualTo(bookType)
+        assertThat(savedBook.type).isEqualTo("COMPUTER")
         assertThat(savedBook.id).isNotNull
     }
 
@@ -36,8 +35,7 @@ class BookRepositoryTest @Autowired constructor(
     fun findByName() {
         //given
         val bookName = "HTTP 완벽 가이드"
-        val bookType = "IT"
-        val book = Book.fixture(bookName, bookType)
+        val book = Book.fixture(bookName)
         val savedBook = bookRepository.save(book)
 
         //when
@@ -45,7 +43,7 @@ class BookRepositoryTest @Autowired constructor(
 
         //then
         assertThat(result!!.name).isEqualTo(bookName)
-        assertThat(result.type).isEqualTo(bookType)
+        assertThat(result.type).isEqualTo("COMPUTER")
         assertThat(result.id).isEqualTo(savedBook.id)
     }
 }
