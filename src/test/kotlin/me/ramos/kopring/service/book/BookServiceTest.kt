@@ -2,6 +2,7 @@ package me.ramos.kopring.service.book
 
 import me.ramos.kopring.domain.book.Book
 import me.ramos.kopring.domain.book.BookRepository
+import me.ramos.kopring.domain.book.BookType
 import me.ramos.kopring.domain.user.User
 import me.ramos.kopring.domain.user.UserRepository
 import me.ramos.kopring.domain.user.loanhistory.UserLoanHistory
@@ -35,7 +36,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun saveBookTest() {
         //given
-        val request = BookRequest("HTTP 완벽 가이드", "IT")
+        val request = BookRequest("HTTP 완벽 가이드", BookType.COMPUTER)
 
         //when
         bookService.saveBook(request)
@@ -44,13 +45,13 @@ class BookServiceTest @Autowired constructor(
         val books = bookRepository.findAll()
         assertThat(books).hasSize(1)
         assertThat(books[0].name).isEqualTo("HTTP 완벽 가이드")
-        assertThat(books[0].type).isEqualTo("IT")
+        assertThat(books[0].type).isEqualTo(BookType.COMPUTER)
     }
 
     @Test
     fun loanBookTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", BookType.SOCIETY))
         val savedUser = userRepository.save(User("Ramos", null))
         val request = BookLoanRequest("Ramos", "무엇이 인간을 만드는가")
 
@@ -68,7 +69,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun loanBookFailTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", BookType.SOCIETY))
         val savedUser = userRepository.save(User("Ramos", null))
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
         val request = BookLoanRequest("Ramos", "무엇이 인간을 만드는가")
@@ -83,7 +84,7 @@ class BookServiceTest @Autowired constructor(
     @Test
     fun returnBookTest() {
         //given
-        bookRepository.save(Book("무엇이 인간을 만드는가", "SOCIETY"))
+        bookRepository.save(Book("무엇이 인간을 만드는가", BookType.SOCIETY))
         val savedUser = userRepository.save(User("Ramos", null))
         userLoanHistoryRepository.save(UserLoanHistory(savedUser, "무엇이 인간을 만드는가", false))
         val request = BookReturnRequest("Ramos", "무엇이 인간을 만드는가")

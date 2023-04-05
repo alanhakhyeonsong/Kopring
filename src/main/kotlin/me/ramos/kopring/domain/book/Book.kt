@@ -7,7 +7,7 @@ import javax.persistence.*
 class Book(
     val name: String,
 
-    val type: String,
+    val type: BookType,
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ class Book(
     companion object {
         fun fixture(
             name: String = "책 이름",
-            type: String = "COMPUTER",
+            type: BookType = BookType.COMPUTER,
             id: Long? = null
         ): Book {
             return Book(

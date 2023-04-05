@@ -27,7 +27,7 @@ class BookRepositoryTest @Autowired constructor(
 
         //then
         assertThat(savedBook.name).isEqualTo(bookName)
-        assertThat(savedBook.type).isEqualTo("COMPUTER")
+        assertThat(savedBook.type).isEqualTo(BookType.COMPUTER)
         assertThat(savedBook.id).isNotNull
     }
 
@@ -43,7 +43,7 @@ class BookRepositoryTest @Autowired constructor(
 
         //then
         assertThat(result!!.name).isEqualTo(bookName)
-        assertThat(result.type).isEqualTo("COMPUTER")
+        assertThat(result.type).isEqualTo(BookType.COMPUTER)
         assertThat(result.id).isEqualTo(savedBook.id)
     }
 }

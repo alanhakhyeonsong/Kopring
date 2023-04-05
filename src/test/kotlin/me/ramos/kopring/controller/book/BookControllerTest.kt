@@ -1,6 +1,7 @@
 package me.ramos.kopring.controller.book
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import me.ramos.kopring.domain.book.BookType
 import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
@@ -31,7 +32,7 @@ class BookControllerTest {
     @Test
     fun saveBook() {
         //given
-        val request = BookRequest("Kotlin In Action", "IT")
+        val request = BookRequest("Kotlin In Action", BookType.COMPUTER)
         val json = jacksonObjectMapper().writeValueAsString(request)
         val uri = "/book"
 
