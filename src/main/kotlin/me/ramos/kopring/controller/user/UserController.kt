@@ -42,6 +42,6 @@ class UserController(
 
     @GetMapping("/loan")
     fun getUserLoanHistories(): List<UserLoanHistoryResponse> {
-        return emptyList()
+        return userService.getUserLoanHistories()
     }
 }
