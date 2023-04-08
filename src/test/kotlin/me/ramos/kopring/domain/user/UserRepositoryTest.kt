@@ -45,4 +45,20 @@ class UserRepositoryTest @Autowired constructor(
         assertThat(result.age).isEqualTo(savedUser.age)
         assertThat(result.id).isEqualTo(savedUser.id)
     }
+
+    @Test
+    fun findAllWithHistories() {
+        //given
+        val name = "Ramos"
+        val age = 28
+        val user = User(name, age)
+        userRepository.save(user)
+
+        //when
+        val results = userRepository.findAllWithHistories()
+
+        //then
+        assertThat(results).hasSize(1)
+        assertThat(results[0].userLoanHistories).isEmpty()
+    }
 }
