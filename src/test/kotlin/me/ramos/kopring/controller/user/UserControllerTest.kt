@@ -3,6 +3,8 @@ package me.ramos.kopring.controller.user
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import me.ramos.kopring.dto.user.request.UserCreateRequest
 import me.ramos.kopring.dto.user.request.UserUpdateRequest
+import me.ramos.kopring.dto.user.response.BookHistoryResponse
+import me.ramos.kopring.dto.user.response.UserLoanHistoryResponse
 import me.ramos.kopring.dto.user.response.UserResponse
 import me.ramos.kopring.service.user.UserService
 import org.junit.jupiter.api.Assertions.*
@@ -98,6 +100,37 @@ class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun getUserLoanHistories() {
+        //given
+        val uri = "/user/loan"
+        val userName = "Ramos"
+        val bookName = "객체지향의 사실과 오해"
+        val bookHistory = BookHistoryResponse(bookName, true)
+
+        Mockito.`when`(userService.getUserLoanHistories())
+            .thenReturn(
+                listOf(
+                    UserLoanHistoryResponse(
+                        userName,
+                        listOf(bookHistory)
+                    )
+                )
+            )
+
+        //when, then
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$[0].name").value(userName))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$[0].books[0].name").value(bookHistory.name))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$[0].books[0].isReturn").value(bookHistory.isReturn))
             .andDo(MockMvcResultHandlers.print())
     }
 }
