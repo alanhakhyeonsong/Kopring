@@ -3,7 +3,9 @@ package me.ramos.kopring.controller.book
 import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
+import me.ramos.kopring.dto.book.response.BookStatResponse
 import me.ramos.kopring.service.book.BookService
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -31,4 +33,13 @@ class BookController(
         bookService.returnBook(request)
     }
 
+    @GetMapping("/loan")
+    fun countLoanedBook(): Int {
+        return bookService.countLoanedBook()
+    }
+
+    @GetMapping("/stat")
+    fun getBookStatistics(): List<BookStatResponse> {
+        return bookService.getBookStatistics()
+    }
 }
