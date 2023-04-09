@@ -5,6 +5,7 @@ import me.ramos.kopring.domain.book.BookType
 import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
+import me.ramos.kopring.dto.book.response.BookStatResponse
 import me.ramos.kopring.dto.user.request.UserCreateRequest
 import me.ramos.kopring.service.book.BookService
 import org.junit.jupiter.api.Assertions.*
@@ -80,6 +81,43 @@ class BookControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun countLoanedBook() {
+        //given
+        val uri = "/book/loan"
+
+        Mockito.`when`(bookService.countLoanedBook()).thenReturn(3)
+
+        //when, then
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andDo(MockMvcResultHandlers.print())
+    }
+
+    @Test
+    fun getBookStatistics() {
+        //given
+        val uri = "/book/stat"
+        val response = BookStatResponse(BookType.SCIENCE, 3)
+
+        Mockito.`when`(bookService.getBookStatistics()).thenReturn(listOf(response))
+
+        //when, then
+        mockMvc.perform(
+            MockMvcRequestBuilders.get(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("\$[0].type").value(BookType.SCIENCE.toString()))
+            .andExpect(MockMvcResultMatchers.jsonPath("\$[0].count").value(3))
             .andDo(MockMvcResultHandlers.print())
     }
 }
