@@ -46,4 +46,20 @@ class BookRepositoryTest @Autowired constructor(
         assertThat(result.type).isEqualTo(BookType.COMPUTER)
         assertThat(result.id).isEqualTo(savedBook.id)
     }
+
+    @Test
+    fun getStats() {
+        //given
+        val bookName = "HTTP 완벽 가이드"
+        val book = Book.fixture(bookName)
+        bookRepository.save(book)
+
+        //when
+        val results = bookRepository.getStats()
+
+        //then
+        assertThat(results).hasSize(1)
+        assertThat(results[0].type).isEqualTo(BookType.COMPUTER)
+        assertThat(results[0].count).isEqualTo(1)
+    }
 }
