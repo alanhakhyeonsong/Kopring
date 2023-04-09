@@ -59,4 +59,43 @@ class UserLoanHistoryRepositoryTest @Autowired constructor(
         assertThat(result.user).isEqualTo(savedUser)
         assertThat(result.status).isEqualTo(UserLoanStatus.LOANED)
     }
+
+    @Test
+    fun findAllByStatus() {
+        //given
+        val name = "Ramos"
+        val user = User(name, 28)
+        val savedUser = userRepository.save(user)
+
+        val bookName = "오브젝트"
+        val userLoanHistory = UserLoanHistory.fixture(savedUser, bookName)
+        userLoanHistoryRepository.save(userLoanHistory)
+
+        //when
+        val results = userLoanHistoryRepository.findAllByStatus(UserLoanStatus.LOANED)
+
+        //then
+        assertThat(results).hasSize(1)
+        assertThat(results[0].user).isEqualTo(user)
+        assertThat(results[0].bookName).isEqualTo(bookName)
+        assertThat(results[0].status).isEqualTo(UserLoanStatus.LOANED)
+    }
+
+    @Test
+    fun countByStatus() {
+        //given
+        val name = "Ramos"
+        val user = User(name, 28)
+        val savedUser = userRepository.save(user)
+
+        val bookName = "오브젝트"
+        val userLoanHistory = UserLoanHistory.fixture(savedUser, bookName)
+        userLoanHistoryRepository.save(userLoanHistory)
+
+        //when
+        val result = userLoanHistoryRepository.countByStatus(UserLoanStatus.LOANED)
+
+        //then
+        assertThat(result).isEqualTo(1)
+    }
 }
