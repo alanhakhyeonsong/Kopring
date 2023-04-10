@@ -2,6 +2,7 @@ package me.ramos.kopring.domain.book
 
 import com.querydsl.core.types.Projections
 import com.querydsl.jpa.impl.JPAQueryFactory
+import me.ramos.kopring.domain.book.QBook.book
 import me.ramos.kopring.dto.book.response.BookStatResponse
 
 class BookRepositoryImpl(
@@ -12,11 +13,11 @@ class BookRepositoryImpl(
         return queryFactory.select(
             Projections.constructor(
             BookStatResponse::class.java,
-            QBook.book.type,
-            QBook.book.id.count()
+            book.type,
+            book.id.count()
         ))
-            .from(QBook.book)
-            .groupBy(QBook.book.type)
+            .from(book)
+            .groupBy(book.type)
             .fetch()
     }
 }
