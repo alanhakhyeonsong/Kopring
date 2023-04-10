@@ -1,5 +1,6 @@
 package me.ramos.kopring.domain.user.loanhistory
 
+import me.ramos.kopring.config.TestConfig
 import me.ramos.kopring.domain.user.User
 import me.ramos.kopring.domain.user.UserRepository
 import org.assertj.core.api.Assertions.assertThat
@@ -7,8 +8,10 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 
 @DataJpaTest
+@Import(TestConfig::class)
 class UserLoanHistoryRepositoryTest @Autowired constructor(
     private val userLoanHistoryRepository: UserLoanHistoryRepository,
     private val userRepository: UserRepository,
