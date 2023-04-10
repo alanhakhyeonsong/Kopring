@@ -12,7 +12,7 @@ class TestConfig(
 ) {
 
     @Bean
-    fun querydsl(): JPAQueryFactory {
+    fun queryFactory(): JPAQueryFactory {
         return JPAQueryFactory(em)
     }
 }

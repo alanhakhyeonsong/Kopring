@@ -5,7 +5,7 @@ import me.ramos.kopring.domain.user.QUser.user
 
 class UserRepositoryImpl(
     private val queryFactory: JPAQueryFactory,
-) : UserRepositoryCustom {
+): UserRepositoryCustom {
 
     override fun findAllWithHistories(): List<User> {
         return queryFactory.select(user).distinct()

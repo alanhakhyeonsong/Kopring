@@ -6,10 +6,8 @@ import me.ramos.kopring.dto.book.request.BookLoanRequest
 import me.ramos.kopring.dto.book.request.BookRequest
 import me.ramos.kopring.dto.book.request.BookReturnRequest
 import me.ramos.kopring.dto.book.response.BookStatResponse
-import me.ramos.kopring.dto.user.request.UserCreateRequest
 import me.ramos.kopring.service.book.BookService
 import org.junit.jupiter.api.Assertions.*
-
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
