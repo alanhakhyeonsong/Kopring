@@ -2,11 +2,6 @@ package me.ramos.kopring.domain.user.loanhistory
 
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface UserLoanHistoryRepository : JpaRepository<UserLoanHistory, Long> {
+interface UserLoanHistoryRepository : JpaRepository<UserLoanHistory, Long>, UserLoanHistoryRepositoryCustom {
 
-    fun findByBookNameAndStatus(bookName: String, status: UserLoanStatus): UserLoanHistory?
-
-    fun findAllByStatus(userLoanStatus: UserLoanStatus): List<UserLoanHistory>
-
-    fun countByStatus(status: UserLoanStatus): Long
 }
