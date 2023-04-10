@@ -3,10 +3,8 @@ package me.ramos.kopring.service.user
 import me.ramos.kopring.domain.user.User
 import me.ramos.kopring.domain.user.UserRepository
 import me.ramos.kopring.domain.user.loanhistory.UserLoanHistoryRepository
-import me.ramos.kopring.domain.user.loanhistory.UserLoanStatus
 import me.ramos.kopring.dto.user.request.UserCreateRequest
 import me.ramos.kopring.dto.user.request.UserUpdateRequest
-import me.ramos.kopring.dto.user.response.BookHistoryResponse
 import me.ramos.kopring.dto.user.response.UserLoanHistoryResponse
 import me.ramos.kopring.dto.user.response.UserResponse
 import org.springframework.data.repository.findByIdOrNull
